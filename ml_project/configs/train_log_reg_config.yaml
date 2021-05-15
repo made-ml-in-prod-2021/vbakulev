@@ -1,6 +1,6 @@
-input_data_path: "data/raw/heart.csv"
-output_model_path: "models/model_log_reg.pkl"
-metric_path: "models/metrics_log_reg.json"
+input_data_path: "ml_project/data/raw/heart.csv"
+output_model_path: "ml_project/models/model_log_reg.pkl"
+metric_path: "ml_project/models/metrics_log_reg.json"
 splitting_params:
   val_size: 0.2
   random_state: 42
@@ -22,5 +22,4 @@ feature_params:
     - "chol"
     - "thalach"
     - "oldpeak"
-  features_to_drop:
   target_col: "target"

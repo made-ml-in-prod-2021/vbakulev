@@ -54,6 +54,7 @@ def predict_pipeline(predict_pipeline_params: PredictPipelineParams):
     logger.info(f"Save prediction in {predict_pipeline_params.output_predict_path}")
     pd.DataFrame({"target": predicts}).to_csv(predict_pipeline_params.output_predict_path, index=False)
     logger.info("DONE!")
+    return predicts
 
 
 def predict_pipeline_command(config_path: str):

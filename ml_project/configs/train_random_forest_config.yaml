@@ -1,11 +1,11 @@
 input_data_path: "ml_project/data/raw/heart.csv"
-output_model_path: "ml_project/models/model_log_reg.pkl"
-metric_path: "ml_project/models/metrics_log_reg.json"
+output_model_path: "ml_project/models/model_random_forest.pkl"
+metric_path: "ml_project/models/metrics_random_forest.json"
 splitting_params:
-  val_size: 0.2
-  random_state: 42
+  val_size: 0.25
+  random_state: 24
 train_params:
-  model_type: "LogisticRegression"
+  model_type: "RandomForestClassifier"
 feature_params:
   categorical_features:
     - "sex"
