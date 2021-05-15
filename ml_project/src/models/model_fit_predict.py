@@ -6,8 +6,10 @@ from typing import Dict, Union
 
 import numpy as np
 import pandas as pd
+from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
 from sklearn.metrics import (
     roc_auc_score,
     accuracy_score,
@@ -29,8 +31,12 @@ SklearnClassifierModel = Union[LogisticRegression, RandomForestClassifier]
 
 
 def train_model(
-    features: pd.DataFrame, target: pd.Series, train_params: TrainingParams
+        transformer: ColumnTransformer,
+        features: pd.DataFrame,
+        target: pd.Series,
+        train_params: TrainingParams
 ) -> SklearnClassifierModel :
+
     logger.info(f"Create model {train_params.model_type} ...")
     if train_params.model_type == "LogisticRegression":
         model = LogisticRegression()
@@ -40,6 +46,10 @@ def train_model(
         )
     else:
         raise NotImplementedError()
+
+    model = Pipeline([('transform_features', transformer),
+                        ('clf_model', model)
+                       ])
     logger.info(f"Model fit...")
     model.fit(features, target)
     return model
@@ -67,7 +77,8 @@ def evaluate_model(
 
 
 def serialize_model(
-        model: SklearnClassifierModel, output: str
+        model: SklearnClassifierModel,
+        output: str,
 ) -> str:
     logger.info(f"Model serialize...")
     with open(output, "wb") as f:

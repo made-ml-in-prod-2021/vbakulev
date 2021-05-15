@@ -1,8 +1,7 @@
 import json
 import logging
 import sys
-
-import click
+from argparse import ArgumentParser
 
 from src.data import read_data, split_train_val_data
 from src.entities.train_pipeline_params import (
@@ -18,16 +17,31 @@ from src.models import (
     evaluate_model,
 )
 
+
+DEFAULT_CONFIG_PATH = "ml_project/configs/train_log_reg_config.yaml"
+
+
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 
+def parse_arguments():
+    parser = ArgumentParser(__doc__)
+    parser.add_argument(
+        "--config_path",
+        help="path to training configuration .yml",
+        default=DEFAULT_CONFIG_PATH
+    )
+    return parser.parse_args()
+
+
 def train_pipeline(training_pipeline_params: TrainingPipelineParams):
     logger.info(f"start train pipeline with params {training_pipeline_params}")
     data = read_data(training_pipeline_params.input_data_path)
     logger.info(f"data.shape is {data.shape}")
+
     train_df, val_df = split_train_val_data(
         data, training_pipeline_params.splitting_params
     )
@@ -35,23 +49,16 @@ def train_pipeline(training_pipeline_params: TrainingPipelineParams):
     logger.info(f"val_df.shape is {val_df.shape}")
 
     transformer = build_transformer(training_pipeline_params.feature_params)
-    transformer.fit(train_df)
-    train_features = transformer.transform(train_df)
     train_target = extract_target(train_df, training_pipeline_params.feature_params)
 
-    logger.info(f"train_features.shape is {train_features.shape}")
-
     model = train_model(
-        train_features, train_target, training_pipeline_params.train_params
+        transformer, train_df, train_target, training_pipeline_params.train_params
     )
 
-    val_features = transformer.transform(val_df)
     val_target = extract_target(val_df, training_pipeline_params.feature_params)
-
-    logger.info(f"val_features.shape is {val_features.shape}")
     predicts = predict_model(
         model,
-        val_features,
+        val_df,
     )
 
     metrics = evaluate_model(
@@ -68,12 +75,11 @@ def train_pipeline(training_pipeline_params: TrainingPipelineParams):
     return path_to_model, metrics
 
 
-@click.command(name="train_pipeline")
-@click.argument("config_path")
 def train_pipeline_command(config_path: str):
     params = read_training_pipeline_params(config_path)
     train_pipeline(params)
 
 
 if __name__ == "__main__":
-    train_pipeline_command()
+    args = parse_arguments()
+    train_pipeline_command(args.config_path)
