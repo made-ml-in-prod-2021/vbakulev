@@ -23,16 +23,16 @@ def feature_params(
     return params
 
 
-def test_extract_features(feature_params: FeatureParams, train_dataset_path: str):
-    data = read_data(train_dataset_path)
+def test_extract_features(feature_params: FeatureParams, dataset_path):
+    data = read_data(dataset_path)
     target = extract_target(data, feature_params)
     assert all(data[feature_params.target_col] == target)
 
 
 def test_build_transformer(
-    feature_params: FeatureParams, train_dataset_path: str,
+    feature_params: FeatureParams, dataset_path,
 ):
-    data = read_data(train_dataset_path)
+    data = read_data(dataset_path)
     transformer = build_transformer(feature_params)
     transformer.fit(data)
     features = transformer.transform(data)

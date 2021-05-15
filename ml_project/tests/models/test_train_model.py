@@ -15,14 +15,14 @@ from src.models.model_fit_predict import train_model, serialize_model
 
 
 def test_train_model(
-    train_dataset_path: str, categorical_features: List[str], numerical_features: List[str]
+        dataset_path, categorical_features: List[str], numerical_features: List[str]
 ):
     params = FeatureParams(
         categorical_features=categorical_features,
         numerical_features=numerical_features,
         target_col="target",
     )
-    data = read_data(train_dataset_path)
+    data = read_data(dataset_path)
     target = extract_target(data, params)
     transformer = build_transformer(params)
     model = train_model(transformer, data, target, train_params=TrainingParams())

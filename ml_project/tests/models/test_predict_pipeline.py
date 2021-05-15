@@ -13,10 +13,10 @@ from src.entities import (
 )
 
 def test_predict(
-    predict_dataset_path: str,
+    dataset_path: str,
 ):
     params = PredictPipelineParams(
-        input_data_path=predict_dataset_path,
+        input_data_path=dataset_path,
         model_path="ml_project/models/model_log_reg.pkl",
         output_predict_path="ml_project/results/test_predict.csv"
     )
