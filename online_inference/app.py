@@ -19,7 +19,7 @@ from src.models.app_data import (
 )
 
 
-CONFIG_PATH = "online_inference/configs/app_config.yaml"
+CONFIG_PATH = "configs/app_config.yaml"
 
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ def health() -> bool:
     return not (model is None)
 
 
-@app.get("/predict/", response_model=List[HeartResponse])
+@app.get("/predict", response_model=List[HeartResponse])
 def predict(request: HeartModel):
     return make_predict(request.data, request.features, model)
 
