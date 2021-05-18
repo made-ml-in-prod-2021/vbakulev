@@ -22,7 +22,7 @@ logger.addHandler(handler)
 def load_object(path: str) -> Pipeline:
     logger.info(f"Load model from path {path}")
     with open(path, "rb") as fin:
-        model =  pickle.load(fin)
+        model = pickle.load(fin)
     return model
 
 
@@ -32,7 +32,6 @@ def make_predict(
     data = pd.DataFrame(data, columns=features)
     logger.info(f"Make predict for data {data.to_string()}")
     data["target"] = np.zeros((len(data),), dtype=int)
-    logger.info(type(model))
     predicts = model.predict(data)
 
     return [
