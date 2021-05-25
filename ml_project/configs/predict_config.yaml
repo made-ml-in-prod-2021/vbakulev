@@ -1,0 +1,3 @@
+input_data_path: "ml_project/data/raw/heart.csv"
+model_path: "ml_project/models/model_log_reg.pkl"
+output_predict_path: "ml_project/results/predict.csv"
