@@ -26,7 +26,8 @@ def split_train_val_data(
     data: pd.DataFrame, params: SplittingParams
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
-    logger.info(f"Split datasets into training and validation parts. The validation part is {params.val_size * 100} percent")
+    logger.info(f"Split datasets into training and validation parts.")
+    logger.info(f"The validation part is {params.val_size * 100} percent")
     train_data, val_data = train_test_split(
         data, test_size=params.val_size, random_state=params.random_state
     )
