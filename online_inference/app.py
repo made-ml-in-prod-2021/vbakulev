@@ -2,7 +2,7 @@ import sys
 import logging
 import os
 import pickle
-from typing import List, Union, Optional
+from typing import List, Optional
 
 import uvicorn
 from fastapi import FastAPI

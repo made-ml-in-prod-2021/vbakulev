@@ -1,7 +1,7 @@
 import sys
 import logging
 import pickle
-from typing import List, Union, Optional
+from typing import List
 
 import numpy as np
 import pandas as pd
