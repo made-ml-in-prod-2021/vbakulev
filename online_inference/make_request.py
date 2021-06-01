@@ -28,7 +28,7 @@ def main():
         ]
         logger.info(request_data)
         response = requests.get(
-            "http://127.0.0.1:8000/predict/",
+            "http://localhost:8000/predict/",
             json={"data": [request_data], "features": request_features},
         )
         logger.info(response.status_code)
