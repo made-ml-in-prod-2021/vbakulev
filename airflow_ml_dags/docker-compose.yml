@@ -79,5 +79,29 @@ services:
     image: airflow-generate-data
     restart: "no"
 
+  procesed_data:
+    build:
+      context: images/airflow-processed-data
+    image: airflow-processed-data
+    restart: "no"
+
+  split_data:
+    build:
+      context: images/airflow-split-data
+    image: airflow-split-data
+    restart: "no"
+
+  train_model:
+    build:
+      context: images/airflow-train-model
+    image: airflow-train-model
+    restart: "no"
+
+  val_model:
+    build:
+      context: images/airflow-val-model
+    image: airflow-val-model
+    restart: "no"
+
 volumes:
   logs:
