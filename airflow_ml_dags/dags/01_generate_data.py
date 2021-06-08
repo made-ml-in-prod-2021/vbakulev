@@ -15,7 +15,7 @@ with DAG(
         "01-generate-data",
         default_args=default_args,
         schedule_interval="@daily",
-        start_date=days_ago(5),
+        start_date=days_ago(30),
 ) as dag:
     generate_data = DockerOperator(
         image="airflow-generate-data",

@@ -5,27 +5,15 @@ import random
 
 import pandas as pd
 
-DATASET_SIZE = 10
+DATASET_SIZE = 100
 SEED = 42
 
-# NUMERICAL_FEATURES_PARAMS
-MIN_AGE, MAX_AGE = 29, 77
-MIN_TRESTBPS, MAX_TRESTBPS = 94, 200
-MIN_CHOL, MAX_CHOL = 126, 564
-MIN_THALACH, MAX_THALACH = 71, 202
-MIN_OLDPEAK, MAX_OLDPEAK = 0., 6.2
 
-# CATEGORICAL_FEATURES_PARAMS
-LIST_SEX = [1, 0]
-LIST_CP = [3, 2, 1, 0]
-LIST_FBS = [1, 0]
-LIST_RESTECG = 	[0, 1, 2]
-LIST_EXANG = [0, 1]
-LIST_SLOPE = [0, 2, 1]
-LIST_CA = [0, 2, 1, 3, 4]
-LIST_THAL =[1, 2, 3, 0]
-
-# TARGET
+MIN_FEATURE_1, MAX_FEATURE_1 = 10, 100
+MIN_FEATURE_2, MAX_FEATURE_2 = 1, 200
+MIN_FEATURE_3, MAX_FEATURE_3 = 50, 500
+MIN_FEATURE_4, MAX_FEATURE_4 = 1, 23
+MIN_FEATURE_5, MAX_FEATURE_5 = 4, 70
 LIST_TARGET = [0, 1]
 
 
@@ -41,19 +29,11 @@ def parse_arguments():
 def generate_data(output_dir: str):
     random.seed(SEED)
     df = pd.DataFrame({
-        "age": [random.randint(MIN_AGE, MAX_AGE) for _ in range(DATASET_SIZE)],
-        "sex": [random.choice(LIST_SEX) for _ in range(DATASET_SIZE)],
-        "cp": [random.choice(LIST_CP) for _ in range(DATASET_SIZE)],
-        "trestbps": [random.randint(MIN_TRESTBPS, MAX_TRESTBPS) for _ in range(DATASET_SIZE)],
-        "chol": [random.randint(MIN_CHOL, MAX_CHOL) for _ in range(DATASET_SIZE)],
-        "fbs": [random.choice(LIST_FBS) for _ in range(DATASET_SIZE)],
-        "restecg": [random.choice(LIST_RESTECG) for _ in range(DATASET_SIZE)],
-        "thalach": [random.randint(MIN_THALACH, MAX_THALACH) for _ in range(DATASET_SIZE)],
-        "exang": [random.choice(LIST_EXANG) for _ in range(DATASET_SIZE)],
-        "oldpeak": [random.uniform(MIN_OLDPEAK, MAX_OLDPEAK) for _ in range(DATASET_SIZE)],
-        "slope": [random.choice(LIST_SLOPE) for _ in range(DATASET_SIZE)],
-        "ca": [random.choice(LIST_CA) for _ in range(DATASET_SIZE)],
-        "thal": [random.choice(LIST_THAL) for _ in range(DATASET_SIZE)],
+        "feature_1": [random.randint(MIN_FEATURE_1, MAX_FEATURE_1) for _ in range(DATASET_SIZE)],
+        "feature_2": [random.randint(MIN_FEATURE_2, MAX_FEATURE_2) for _ in range(DATASET_SIZE)],
+        "feature_3": [random.randint(MIN_FEATURE_3, MAX_FEATURE_3) for _ in range(DATASET_SIZE)],
+        "feature_4": [random.randint(MIN_FEATURE_4, MAX_FEATURE_4) for _ in range(DATASET_SIZE)],
+        "feature_5": [random.randint(MIN_FEATURE_5, MAX_FEATURE_5) for _ in range(DATASET_SIZE)],
         "target": [random.choice(LIST_TARGET) for _ in range(DATASET_SIZE)],
     })
     os.makedirs(output_dir, exist_ok=True)
